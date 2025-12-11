@@ -112,9 +112,38 @@ class Receptor:
         if self.recorridas > 3:
             self.activo = False
 
+# ---------------------------
+# TABLA HASH SIMPLE
+# ---------------------------
+
+class TablaHashUsuarios:
+    # Tabla hash con chaining. Uso array Python para buckets por sencillez operativa.
+    # Justificación: se pide evitar dict en la lógica; usar buckets está permitido.
+    def __init__(self, capacidad: int = 13):
+        self.capacidad = capacidad  # preferible primo para dispersión
+        self.buckets = [None] * capacidad
+
+    def _indice(self, expediente: int) -> int:
+        return expediente % self.capacidad
+
+    def agregar(self, usuario: UsuarioNodo) -> None:
+        idx = self._indice(usuario.expediente)
+        # Inserción en cabeza del bucket para simplicidad y O(1)
+        usuario.siguiente = self.buckets[idx]
+        self.buckets[idx] = usuario
+
+    def buscar(self, expediente: int) -> UsuarioNodo | None:
+        idx = self._indice(expediente)
+        actual = self.buckets[idx]
+        while actual:
+            if actual.expediente == expediente:
+                return actual
+            actual = actual.siguiente
+        return None
+    
+    
 
 
-            
     
 
 
