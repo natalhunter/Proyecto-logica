@@ -95,7 +95,26 @@ class ColaEnlazada:
             c += 1
             actual = actual.siguiente
         return c
+# ---------------------------
+# RECEPTOR (VENTANILLA)
+# ---------------------------
 
+class Receptor:
+    # Modelo del receptor en ventanilla. Controla recorridas (penalizaciones).
+    def __init__(self, id_receptor: str):
+        self.id = id_receptor
+        self.cola = ColaEnlazada()
+        self.recorridas = 0  # contador de desplazamientos de turnos
+        self.activo = True
+
+    def registrar_recorrido(self) -> None:
+        self.recorridas += 1
+        if self.recorridas > 3:
+            self.activo = False
+
+
+
+            
     
 
 
