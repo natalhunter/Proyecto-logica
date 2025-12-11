@@ -120,10 +120,7 @@ def tiempo_estimado():
     print(f"Ventanilla 3: {len(ventanilla3) * TIEMPOS['complejo']} min")
     print(f"Ventanilla 4: {len(ventanilla4) * TIEMPOS['pagos']} min")
 
-
-# ================================
-# MENÚ PRINCIPAL
-# ================================
+# MENÚ PRINCIPAL# 
 while True:
     print("\n====== SISTEMA DE TRÁMITES ======")
     print("1) Registrar cliente")
