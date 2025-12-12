@@ -90,10 +90,10 @@ def ver_colas():
 
 def atender_cliente():
     print("\n--- Atender Cliente ---")
-    print("1) Ventanilla 1")
-    print("2) Ventanilla 2")
-    print("3) Ventanilla 3")
-    print("4) Ventanilla 4")
+    print(f"1) Ventanilla 1 {ventanilla1}")
+    print(f"2) Ventanilla 2 {ventanilla2}")
+    print(f"3) Ventanilla 3 {ventanilla3}")
+    print(f"4) Ventanilla 4 {ventanilla4}")
 
     op = input("Selecciona ventanilla: ")
 
@@ -115,10 +115,10 @@ def atender_cliente():
 
 def tiempo_estimado():
     print("\n--- Tiempos de Espera ---")
-    print(f"Ventanilla 1: {len(ventanilla1) * TIEMPOS['documentos']} min")
-    print(f"Ventanilla 2: {len(ventanilla2) * TIEMPOS['simple']} min")
-    print(f"Ventanilla 3: {len(ventanilla3) * TIEMPOS['complejo']} min")
-    print(f"Ventanilla 4: {len(ventanilla4) * TIEMPOS['pagos']} min")
+    print(f"Ventanilla 1: {len(ventanilla1) * TIEMPOS['documentos']} min; atiende a: {ventanilla1}")
+    print(f"Ventanilla 2: {len(ventanilla2) * TIEMPOS['simple']} min ; atiende a: {ventanilla2}")
+    print(f"Ventanilla 3: {len(ventanilla3) * TIEMPOS['complejo']} min; atiende a: {ventanilla3}")
+    print(f"Ventanilla 4: {len(ventanilla4) * TIEMPOS['pagos']} min; atiende a: {ventanilla4}")
 
 # MENÚ PRINCIPAL# 
 while True:
