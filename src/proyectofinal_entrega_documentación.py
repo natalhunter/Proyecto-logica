@@ -1,8 +1,6 @@
 # -------------------------------------------------------------
 # PROYECTO FINAL: SISTEMA DE ENTREGA DE DOCUMENTACIÓN
 # Contexto: Optimización de atención de turnos en ventanillas de instituciones
-# Autor: Gabriel Gamez / Equipo
-# Entorno: Python 3.11+, sin estructuras avanzadas para operaciones principales
 # -------------------------------------------------------------
 
 # ---------------------
