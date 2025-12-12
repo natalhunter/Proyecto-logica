@@ -1,0 +1,84 @@
+Informe del Proyecto Final: Sistema de Entrega de Documentación
+Descripción del problema
+
+En muchas instituciones, la entrega de documentación enfrenta problemas recurrentes. Los usuarios experimentan demasiado tiempo de espera, falta de orientación y descoordinación en la recepción de documentos. Esto provoca insatisfacción y errores en los procesos administrativos. Por ejemplo, un usuario que necesita entregar únicamente un comprobante de pago puede retrasarse si la ventanilla está ocupada, generando colas innecesarias y acumulación de turnos.
+
+Objetivo del sistema
+
+El sistema busca optimizar la atención al usuario mediante el uso de estructuras de datos y algoritmos eficientes. Su propósito es reducir el tiempo de espera, guiar al usuario hacia la ventanilla correcta según el tipo de trámite y manejar retrasos o mal servicio de receptores mediante recalculo de turnos y rotación automática.
+
+Justificación del diseño algorítmico
+
+Se emplea una cola de prioridad (ColaOrdenada) para mantener los turnos en orden ascendente. Cada inserción se realiza considerando el número de turno, lo que garantiza que el cliente con turno más bajo siempre sea atendido primero. La tabla hash (Hash) permite búsquedas rápidas por nombre de cliente, asegurando que se pueda consultar su turno y documentación sin recorrer toda la cola. La decisión de usar estas estructuras se basa en la necesidad de mantener orden y eficiencia, evitando el uso de listas nativas de Python para cumplir con la condición académica.
+
+Explicación de las estructuras de datos
+
+Nodo: elemento base de todas las listas enlazadas, usado para colas simples y colas de prioridad. Contiene el valor y referencia al siguiente nodo.
+
+Cola ordenada: mantiene los clientes en orden de turno. Su inserción dinámica actúa como un insertion sort adaptado a estructuras enlazadas, eficiente para cantidades moderadas de clientes.
+
+Hash table: permite almacenar y recuperar información de clientes por nombre con complejidad promedio O(1). Maneja colisiones mediante encadenamiento.
+
+Receptor: clase que registra estado de ventanilla y número de retrasos. Permite evaluar mal servicio y rotar al personal automáticamente si excede el límite definido.
+
+Análisis de complejidad
+
+Función insertar de ColaOrdenada:
+
+Mejor caso: O(1), cuando el cliente se inserta al inicio.
+
+Peor caso: O(n), cuando se inserta al final de la cola.
+
+Espacial: O(1) adicional por cada nodo.
+
+Edge cases: cola vacía, reinserción por retraso.
+
+Función get de Hash:
+
+Mejor caso: O(1), búsqueda directa en bucket vacío o con clave única.
+
+Peor caso: O(n/bucket) si existen muchas colisiones en un bucket.
+
+Espacial: O(1) adicional, solo nodos de encadenamiento.
+
+Edge cases: clave no encontrada retorna None.
+
+Función atender_clientes:
+
+Complejidad temporal: O(n) considerando reinserciones por retrasos.
+
+Complejidad espacial: O(1) por cliente.
+
+Edge cases: ventanilla ocupada, receptor excede número máximo de mal servicio, recalculo de turno.
+
+Procedimiento de validación
+
+Registro de clientes de prueba automático mediante registro_prueba.
+
+Uso de menú interactivo para:
+
+Registrar nuevos clientes con turnos secuenciales.
+
+Mostrar snapshot de turnos.
+
+Atender clientes y observar retrasos y recalculo de turnos.
+
+Consultar clientes por nombre y por turno.
+
+Entradas de prueba incluyen clientes con distintos tipos de trámites: documentos básicos, trámites simples, complejos y pagos rápidos.
+
+Salidas verificables: impresión de turnos, tiempo de atención, recalculo de turnos y alertas de mal servicio.
+
+Posibles errores y manejo
+
+Ingreso de tipo de trámite incorrecto: asignación a ventanilla de pagos por defecto.
+
+Turno no numérico al buscar cliente: se captura ValueError.
+
+Receptor con mal servicio superior a límite: se reinicia contador y se simula rotación.
+
+Colas vacías: funciones retornan None sin interrumpir ejecución.
+
+Conclusiones y mejoras
+
+El sistema cumple el objetivo académico y funcional: optimiza la entrega de documentos, prioriza eficiencia y claridad algorítmica. Podrían agregarse mejoras como manejo de fechas y horas exactas con objetos de tiempo, registro histórico de atención en pila o persistencia en archivos externos para consultas posteriores. La modularidad del código permite extender fácilmente estas funciones.
