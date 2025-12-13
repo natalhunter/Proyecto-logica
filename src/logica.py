@@ -19,7 +19,7 @@ class Nodo:
 
 
 
-# cola ordenada por prioridad,es decir, mejor caso (primer registro) va a el inicio y el peor a el final (segundo registro)
+# cola ordenada por pioridad osea el mejor caso va a el inicio y el peor a el final 
 class ColaOrdenada:
    
    
@@ -52,7 +52,7 @@ class ColaOrdenada:
 
         a = self.ini
         res = []
-        while a
+        while a:
             res.append(a.v)
             a = a.sig
         return res
@@ -65,7 +65,7 @@ class HashNode:
         self.v = v
         self.sig = None
 
-class Hash: # esta clase permite la busqueda rapida de clientes 
+class Hash: # esta classe permite la busqueda rapida de clientes 
 
     def __init__(self, cap=31):
         self.cap = cap
