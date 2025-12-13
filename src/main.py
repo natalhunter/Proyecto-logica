@@ -1,5 +1,6 @@
 # Menu aqui no se almacena ningun dato #
-import logica # para llamar a el archivo logica.py
+# importamos funciones desde el archivo logica.py
+import logica 
 
 # Lista para documentos para realizar cualquer tramite
 
@@ -25,7 +26,7 @@ def validar_documentos():
             print("Por favor regreselo Por sus Documentos.\n")
             return False
 
-    print("\n Felicidadez todos los documentos estan completos.")
+    print("\n Admitido. Todos los documentos estan completos.")
     return True
 
 
@@ -36,7 +37,7 @@ def registrar_cliente(turno):
 
     # En esta seccion se  validan los documentos 
     if not validar_documentos():
-        return turno  # No puede seguir al trámite aqui fue indispesable no dejar el return solo 
+        return turno  # No puede seguir al trámite
 
     print("\nSeleccione el tipo de tramite:")
     print("1) Entrega de documentos")
@@ -54,7 +55,7 @@ def registrar_cliente(turno):
         "4": "pago"
     }.get(opcion, "pago")
 
-    hora = ""  # esta linea se desavilita  ya que se planea implementar que la hora se inserte  de manera automatica 
+    hora = ""  # esta linea se deshabilita, se implementa que la hora se inserte de manera automatica 
 
     #en esta linea se mandan la informacion a logica.py
     
