@@ -131,6 +131,17 @@ ventanillas = {
 cola_prio = ColaOrdenada()
 tabla = Hash()
 
+
+def buscar_ventanilla_libre(turno):
+    for v in ventanillas.values():
+        if v.ocupado_hasta <= turno: #----------------------------------------------modificacion para  reubicar a ventanilla
+            return v
+    return None
+
+
+
+
+
 # Registro de cliente asigna tiempo y ventanilla segun el tipo de cada tramite inserta en cola y hash
 def registrar(cliente):
 
@@ -156,7 +167,7 @@ def snapshot():
 
 
 
-# Atención de clientes
+# Atención de clientes se modifica para oprimisar colas y que los clientes sean distribuidos a ventanillas desocupadas
 def atender_clientes():
 
 
@@ -171,13 +182,24 @@ def atender_clientes():
         
 
         if receptor.ocupado_hasta > turno:
-            turno += MAX_TURNO
-            print(f"Cliente {nombre} retrasado, nuevo turno {turno}")
-            receptor.mal_servicio += 1
-            if receptor.mal_servicio > MAX_MAL_SERVICIO:
-                print(f"{receptor.nombre} removido por mal servicio se asigna nuevo ")
-                receptor.mal_servicio = 0
+        
+            alternativa = buscar_ventanilla_libre(turno)
+
+            if alternativa:
+                print(f"Cliente {nombre} reasignado a {alternativa.nombre}")
+                alternativa.ocupado_hasta = turno + t
+
+            else:
+                turno += MAX_TURNO
+                print(f"Cliente {nombre} retrasado, nuevo turno {turno}")
+
+                receptor.mal_servicio += 1
+                if receptor.mal_servicio > MAX_MAL_SERVICIO:
+                    print(f"{receptor.nombre} removido por mal servicio se asigna nuevo ")
+                    receptor.mal_servicio = 0
+
             cola_prio.insertar((nombre, tipo, t, turno, hora, docs, receptor))
+
         else:
             receptor.ocupado_hasta = turno + t
             print(f"Cliente {nombre} atendido en {receptor.nombre} durante {t} minutos")
@@ -203,8 +225,6 @@ def mostrar_cliente_por_turno():
         print(f"Cliente encontrado: Turno {cliente[3]} - Nombre: {cliente[0]}, Tipo: {cliente[1]}, Tiempo: {cliente[2]} min, Hora: {cliente[4]}, Documentos: {cliente[5]}, Receptor: {cliente[6]}")
     else:
         print(f"No se encontro ningun cliente con turno  {turno_input}")
-
-
 
 
 
