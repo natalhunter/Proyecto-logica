@@ -169,40 +169,38 @@ def snapshot():
 
 # Atención de clientes se modifica para oprimisar colas y que los clientes sean distribuidos a ventanillas desocupadas
 def atender_clientes():
-
-
-
-    print("\n--- Atención de clientes -----" )
+    print("\n--- Atención de clientes -----")
     while True:
         cliente = cola_prio.pop_min()
         if not cliente:
             print("no hay clientes en espera")
             break
+
         nombre, tipo, t, turno, hora, docs, receptor = cliente
-        
 
-        if receptor.ocupado_hasta > turno:
-        
-            alternativa = buscar_ventanilla_libre(turno)
-
-            if alternativa:
-                print(f"Cliente {nombre} reasignado a {alternativa.nombre}")
-                alternativa.ocupado_hasta = turno + t
-
-            else:
-                turno += MAX_TURNO
-                print(f"Cliente {nombre} retrasado, nuevo turno {turno}")
-
-                receptor.mal_servicio += 1
-                if receptor.mal_servicio > MAX_MAL_SERVICIO:
-                    print(f"{receptor.nombre} removido por mal servicio se asigna nuevo ")
-                    receptor.mal_servicio = 0
-
-            cola_prio.insertar((nombre, tipo, t, turno, hora, docs, receptor))
-
-        else:
+        # Caso 1: ventanilla original libre
+        if receptor.ocupado_hasta <= turno:
             receptor.ocupado_hasta = turno + t
             print(f"Cliente {nombre} atendido en {receptor.nombre} durante {t} minutos")
+            continue
+
+        # Caso 2: buscar otra ventanilla libre
+        alternativa = buscar_ventanilla_libre(turno)
+        if alternativa:
+            alternativa.ocupado_hasta = turno + t
+            print(f"Cliente {nombre} reasignado y atendido en {alternativa.nombre}")
+            continue
+
+        # Caso 3: todas ocupadas → retraso
+        turno += MAX_TURNO
+        print(f"Cliente {nombre} retrasado, nuevo turno {turno}")
+
+        receptor.mal_servicio += 1
+        if receptor.mal_servicio > MAX_MAL_SERVICIO:
+            print(f"{receptor.nombre} removido por mal servicio")
+            receptor.mal_servicio = 0
+
+        cola_prio.insertar((nombre, tipo, t, turno, hora, docs, receptor))
 
 
 # Buscar cliente por turno
@@ -225,8 +223,6 @@ def mostrar_cliente_por_turno():
         print(f"Cliente encontrado: Turno {cliente[3]} - Nombre: {cliente[0]}, Tipo: {cliente[1]}, Tiempo: {cliente[2]} min, Hora: {cliente[4]}, Documentos: {cliente[5]}, Receptor: {cliente[6]}")
     else:
         print(f"No se encontro ningun cliente con turno  {turno_input}")
-
-
 
 
 
