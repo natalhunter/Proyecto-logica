@@ -1,12 +1,15 @@
 # Menú Principal #
 
 # Documentos requeridos para cualquier trámite
+
+
 DOCUMENTOS_REQUERIDOS = [
     "Acta de nacimiento",
     "RFC",
     "CURP",
     "INE"
 ]
+
 
 # Colas por ventanilla
 ventanilla1 = []   # Entrega de documentos
