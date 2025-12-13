@@ -117,13 +117,15 @@ class Receptor:
         self.nombre = nombre
         self.mal_servicio = 0
         self.ocupado_hasta = 0
-
+ 
+ 
+ 
 # Ventanillas iniciales
 ventanillas = {
-    "v1": Receptor("Receptor 1"),
-    "v2": Receptor("Receptor 2"),
-    "v3": Receptor("Receptor 3"),
-    "v4": Receptor("Receptor 4"),
+    "v1": Receptor("v1 Entrega / revision de documentos"),
+    "v2": Receptor("v2 Tramites simples"),
+    "v3": Receptor("v3 Trámites complejos"),
+    "v4": Receptor("v4 Pagos"),
 }
 
 cola_prio = ColaOrdenada()
@@ -143,13 +145,15 @@ def registrar(cliente):
     return t
 
 
-# Snapshot de clientes
+# Snapshot de clientes se modifica para hacerlo mas entendible 
 def snapshot():
     res = []
-    for x in cola_prio.mostrar():
-        id_demo = "ID{:04d}".format(x[3])
-        res.append(f"{id_demo} {x[0]} {x[1]} {x[2]}min turno{x[3]} hora {x[4]} docs{x[5]} receptor {x[6]}")
+    for nombre, tipo, tiempo, turno, hora, docs, ventanilla in cola_prio.mostrar():
+        res.append(
+            f"Turno {turno} | {nombre} | {tipo.upper()} | Ventanilla: {ventanilla}"
+        )
     return res
+
 
 
 # Atención de clientes
@@ -199,6 +203,9 @@ def mostrar_cliente_por_turno():
         print(f"Cliente encontrado: Turno {cliente[3]} - Nombre: {cliente[0]}, Tipo: {cliente[1]}, Tiempo: {cliente[2]} min, Hora: {cliente[4]}, Documentos: {cliente[5]}, Receptor: {cliente[6]}")
     else:
         print(f"No se encontro ningun cliente con turno  {turno_input}")
+
+
+
 
 
 
