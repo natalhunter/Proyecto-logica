@@ -54,7 +54,7 @@ def registrar_cliente(turno):
         "4": "pago"
     }.get(opcion, "pago")
 
-    hora = input("Hora (ej. 10:55): ")
+    hora = ""  # esta linea se desavilita  ya que se planea implementar que la hora se inserte  de manera automatica 
 
     #en esta linea se mandan la informacion a logica.py
     
@@ -98,4 +98,5 @@ while True:
         break
     else:
         print("Opcion Invalida.")
+
 
