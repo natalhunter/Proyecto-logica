@@ -140,8 +140,8 @@ def registrar(cliente):
     elif tipo == "complejo": t = T_COMPLEJO; vent = ventanillas["v3"]
     else: t = T_PAGOS; vent = ventanillas["v4"]
 
-    cola_prio.insertar((nombre, tipo, t, turno, hora, docs, vent.nombre))
-    tabla.set(nombre, (tipo, t, turno, hora, docs, vent.nombre))
+    cola_prio.insertar((nombre, tipo, t, turno, hora, docs, vent))
+    tabla.set(nombre, (tipo, t, turno, hora, docs, vent))
     return t
 
 
@@ -150,7 +150,7 @@ def snapshot():
     res = []
     for nombre, tipo, tiempo, turno, hora, docs, ventanilla in cola_prio.mostrar():
         res.append(
-            f"Turno {turno} | {nombre} | {tipo.upper()} | Ventanilla: {ventanilla}"
+            f"Turno {turno} | {nombre} | {tipo.upper()} | Ventanilla: {ventanilla.nombre}"
         )
     return res
 
@@ -167,8 +167,8 @@ def atender_clientes():
         if not cliente:
             print("no hay clientes en espera")
             break
-        nombre, tipo, t, turno, hora, docs, receptor_nombre = cliente
-        receptor = ventanillas["v" + receptor_nombre[-1]]
+        nombre, tipo, t, turno, hora, docs, receptor = cliente
+        
 
         if receptor.ocupado_hasta > turno:
             turno += MAX_TURNO
@@ -177,7 +177,7 @@ def atender_clientes():
             if receptor.mal_servicio > MAX_MAL_SERVICIO:
                 print(f"{receptor.nombre} removido por mal servicio se asigna nuevo ")
                 receptor.mal_servicio = 0
-            cola_prio.insertar((nombre, tipo, t, turno, hora, docs, receptor_nombre))
+            cola_prio.insertar((nombre, tipo, t, turno, hora, docs, receptor))
         else:
             receptor.ocupado_hasta = turno + t
             print(f"Cliente {nombre} atendido en {receptor.nombre} durante {t} minutos")
@@ -203,6 +203,8 @@ def mostrar_cliente_por_turno():
         print(f"Cliente encontrado: Turno {cliente[3]} - Nombre: {cliente[0]}, Tipo: {cliente[1]}, Tiempo: {cliente[2]} min, Hora: {cliente[4]}, Documentos: {cliente[5]}, Receptor: {cliente[6]}")
     else:
         print(f"No se encontro ningun cliente con turno  {turno_input}")
+
+
 
 
 
