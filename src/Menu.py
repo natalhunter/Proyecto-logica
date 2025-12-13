@@ -1,7 +1,6 @@
-# Menú Principal #
+# Menu #
 
-# Documentos requeridos para cualquier trámite
-
+# Lista para documentos para realizar cualquer tramite
 
 DOCUMENTOS_REQUERIDOS = [
     "Acta de nacimiento",
@@ -11,7 +10,8 @@ DOCUMENTOS_REQUERIDOS = [
 ]
 
 
-# Colas por ventanilla
+# Cola Para ventanilla 
+
 ventanilla1 = []   # Entrega de documentos
 ventanilla2 = []   # Trámite simple
 ventanilla3 = []   # Trámite complejo
